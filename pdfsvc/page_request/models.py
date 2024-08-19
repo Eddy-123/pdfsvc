@@ -1,3 +1,4 @@
+from django.contrib.auth.models import User
 from django.db import models
 
 
@@ -8,6 +9,7 @@ class PageRequest(models.Model):
         READY = "R", "Ready"
         ERROR = "E", "Error"
 
+    owner = models.ForeignKey(User, on_delete=models.CASCADE)
     url = models.CharField(max_length=128)
     status = models.CharField(
         max_length=2, choices=Status.choices, default=Status.PENDING

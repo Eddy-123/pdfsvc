@@ -27,7 +27,7 @@ SECRET_KEY = "django-insecure-#vyo*js2_$kzz9=f#48dk%6hb=43o)b0@zg*vf#ha(qc+p*y^!
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ["0.0.0.0"]
+ALLOWED_HOSTS = os.environ.get("ALLOWED_HOST_LIST", "*").split(",")
 
 
 # Application definition
@@ -40,6 +40,8 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
+    "rest_framework",
+    "rest_framework.authtoken",
 ]
 
 MIDDLEWARE = [
@@ -144,4 +146,12 @@ LOGGING = {
         },
     },
     "root": {"handlers": ["console"], "level": "WARNING"},
+}
+
+# Rest framework
+REST_FRAMEWORK = {
+    "DEFAULT_AUTHENTICATION_CLASSES": [
+        "rest_framework.authentication.TokenAuthentication",
+        "rest_framework.authentication.SessionAuthentication",
+    ]
 }
